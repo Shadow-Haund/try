@@ -1,5 +1,6 @@
 import os
 import socket
+import threading
 from tzlocal import get_localzone
 
 code_table = 'utf-8'
@@ -76,3 +77,10 @@ def send_message():
             message_send = f'<{local_tz}>{name}->{message}'.encode(code_table)
             message_len_send = f'{len(message_send):<{length_of_message}}'.encode(code_table)
             client.send(message_len_send + message_send)
+
+
+receive_thread = threading.Thread(target=receive_message)
+receive_thread.start()
+
+write_thread = threading.Thread(target=send_message)
+write_thread.start()
