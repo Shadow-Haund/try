@@ -1,4 +1,5 @@
 import socket
+import threading
 from datetime import datetime
 from pytz import timezone
 
@@ -27,6 +28,7 @@ def handle(client):
     full_mes = bytes()
     full_file = bytes()
     while True:
+        # try:
         if buffer == 0:
             message = client.recv(length_of_message).decode(code_table)
             if message.strip().isdigit():  # если число, то это просто сообщение и нужно изменить длину буфера
@@ -74,6 +76,8 @@ def receive_connection():
         client, address = server.accept()
         print(f"Connected with {str(address)}")
         u_sockets.append(client)
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
 
 
 receive_connection()
