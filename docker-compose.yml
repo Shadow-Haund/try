@@ -1,0 +1,8 @@
+
+version: "3"
+services:
+  server:
+    build: tcp/
+    command: python ./server.py
+    ports:
+      - 55555:55555
