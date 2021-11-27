@@ -6,8 +6,7 @@ from pytz import timezone
 
 code_table = 'utf-8'
 
-hostL = 'localhost'
-host_type = input("Type IP adress: ")
+hostL = '0.0.0.0'
 port = 55555
 file_end = '37e3f4a8-b8c9-4f22-ad4d-8bd81e686822'
 length_of_message = len(f"file{file_end}")
@@ -73,12 +72,8 @@ async def handle(reader, writer):
 
 async def receive_connection():
     while True:
-        if not host_type:
-            server = await asyncio.start_server(
-                handle, hostL, port)
-        else:
-            server = await asyncio.start_server(
-                handle, host_type, port)
+        server = await asyncio.start_server(
+             handle, hostL, port)
         addr = server.sockets[0].getsockname()
         print(f'Serving on {addr}')
         async with server:

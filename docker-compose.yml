@@ -6,3 +6,12 @@ services:
     command: python ./server.py
     ports:
       - 55555:55555
+  client1:
+    build: tcp/
+    command: python ./client.py
+    network_mode: host
+    env: name = "sd", ip= 172. 
+  client2:
+    build: tcp/
+    command: python ./client.py
+    network_mode: host
